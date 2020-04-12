@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './post.css';
+import './Post.css';
 
 const post = (props) => (
     <article className="Post" onClick={props.clicked}>
