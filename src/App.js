@@ -11,6 +11,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={PostListing} />} />
           <Route exact path="/createPost" component={NewPost} />} />
+          <Route exact path="/posts/:id" component={FullPost} />} />
         </Switch>
       </div>
     );

@@ -3,46 +3,32 @@ import axios from 'axios';
 
 import Post from '../post/post';
 import './postListing.css';
+import FullPost from '../fullPost/fullPost';
 
 class PostListing extends Component {
-    state={
-        posts:[],
-        selectedPostId:null,
-        error:false
+    state = {
+        posts: [],
+        error: false
     }
     componentDidMount() {
         // async call
-        axios.get('/posts')
-            .then(
-                response => {
-                    const posts =response.data.slice(0,4);
-                    const updatedPosts = posts.map(post => {
-                        return{
-                            ...post,
-                            author:'Shubhra'
-                        }
-                    });
-                    this.setState({posts:updatedPosts});}
-                    // console.log(response.data);}
-            ).catch(error =>{
-                this.setState({error:true});
-                console.log(error);
-        });
+        fetch('http://localhost:3001/posts')
+            .then(response => response.json())
+            .then(data => this.setState({ posts: data }));
 
     }
 
-    postSelectHandler = (id) => {
-        this.setState({selectedPostId:id});
-    }
-    render () {
+  
+    render() {
         let posts = <p> Something went wrong</p>;
-        if(!this.state.error){
+        if (!this.state.error) {
             posts = this.state.posts.map(post => {
-                return<Post
-                    key = {post.id}
+                return <Post
+                    key={post.id}
                     title={post.title}
-                    author ={post.author}
-                    clicked ={() => this.postSelectHandler(post.id)}
+                    author={post.author}
+                    id = {post.id}
+                
                 />;
             });
         }
